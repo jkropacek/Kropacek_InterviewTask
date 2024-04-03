@@ -1,0 +1,35 @@
+Folder Synchronization Script Documentation
+Overview
+This document outlines the design and functionality of a Python script developed as a test task for my interview. The script's primary function is to synchronize the contents of two directories, referred to as the source and the replica. It ensures that the replica directory mirrors the structure and files of the source directory by applying updates at specified intervals.
+
+Technical Description
+The script is written in Python, utilizing its standard libraries to perform file system operations, calculate MD5 checksums for change detection, and log actions for auditability.
+
+Core Functions
+parse_args(): Extracts and processes command-line arguments. This function allows users to define the source and replica directory paths, synchronization interval in seconds, and the path for the log file.
+
+setup_logging(): Establishes logging mechanisms. It configures output to both a rotating log file and the console, facilitating both real-time monitoring and historical analysis of the script's operations.
+
+calculate_md5(): Employs the hashlib library to compute MD5 checksums of files. This is crucial for identifying files that have been added or modified since the last synchronization cycle, optimizing the synchronization process by avoiding unnecessary file copies.
+
+sync_folders(): Represents the script's core logic. It synchronizes the files from the source to the replica directory by copying new or modified files, creating missing directories, and removing files and directories that no longer exist in the source.
+
+Execution Methodology
+The script is executed from the command line, where users specify the necessary parameters for operation. It employs a loop to perform synchronization tasks at the user-defined intervals, continuously checking for and applying changes from the source to the replica directory.
+
+Example Usage (from command prompt):
+-	python sync_folders.py ./source ./replica 60 ./logs/logfile.log
+This command initiates the synchronization process between the source and replica directories, performing checks every 60 seconds, and logging the operations to logfile.log.
+
+Considerations for Improvement
+Given the context of this script as a development exercise, there are several areas where its functionality and robustness could be further enhanced:
+
+Concurrency: Implementing multithreading or multiprocessing could improve the efficiency of the synchronization process, particularly for directories with a large volume of content.
+
+Event-Driven Synchronization: Integrating with filesystem event notifications to trigger synchronization actions could reduce the latency in reflecting changes in the replica directory, moving towards near real-time synchronization.
+
+Error Handling: Expanding the script's error handling capabilities would enhance its robustness and reliability, providing clear diagnostics and ensuring graceful recovery from unexpected conditions.
+
+Conclusion
+This script, developed as a test task, demonstrates the application of Python's standard libraries to solve a practical problem - keeping two directories synchronized. Several improvements could expand its utility, efficiency, and user-friendliness but I believe that it is sufficient for purposes of this interview. 
+
